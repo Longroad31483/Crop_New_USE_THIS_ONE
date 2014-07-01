@@ -28,10 +28,10 @@ class RadioButtonWidget(QWidget):
             self.radio_button_layout.addWidget(each)
             self.radio_button_group.addButton(each)
             self.radio_button_group.setId(each,counter)
-            couter += 1
+            counter += 1
 
         #Add radio buttons to the group box
-        self.radio_group.box.setLayout(self.radio_button_layout)
+        self.radio_group_box.setLayout(self.radio_button_layout)
         
         #create a layout for whole widget
         self.main_layout = QVBoxLayout()
@@ -43,11 +43,5 @@ class RadioButtonWidget(QWidget):
 
     #Method to find out the selected button
     def selected_button(self):
-<<<<<<< HEAD
-
-=======
-        pass
->>>>>>> Task 11 complete
-        ################################# http://www.pythonschool.net/radiobuttonwidget/
-        ############### 11:14
+        return self.radio_button_group.checkedId()
         
