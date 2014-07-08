@@ -6,6 +6,9 @@ from PyQt4.QtCore import *
 
 
 from radio_button_widget_class import * # provides the radio button widget
+from manual_grow_dialog_class import * #provides the manual grow dialog window
+from crop_view_class import * # provides the gaphical crop status display
+
 from wheat_class import *
 from potato_class import *
 
@@ -56,6 +59,11 @@ class CropWindow(QMainWindow):
         self.manual_grow_button = QPushButton("Manually Grow")
         self.automatic_grow_button = QPushButton("Automatically Grow")
 
+        if crop_type == 1:
+            self.crop_view = WheatView()
+        elif crop_type == 2:
+            self.crop_view = PotatoView()
+
         self.grow_grid = QGridLayout()
         self.status_grid = QGridLayout()
 
@@ -70,6 +78,7 @@ class CropWindow(QMainWindow):
         self.status_grid.addWidget(self.status_line_edit,2,1)
 
         #add widget/layouts to the grow layout
+        self.grow_grid.addWidget(self.crop_view,0,0)
         self.grow_grid.addLayout(self.status_grid,0,1)
         self.grow_grid.addWidget(self.manual_grow_button,1,0)
         self.grow_grid.addWidget(self.automatic_grow_button,1,1)
@@ -80,6 +89,7 @@ class CropWindow(QMainWindow):
 
         #connections
         self.automatic_grow_button.clicked.connect(self.automatically_grow_crop)
+        self.manual_grow_button.clicked.connect(self.manual_grow_crop)
         
     def instantiate_crop(self):
         crop_type = self.crop_radio_buttons.selected_button() # get the radio that was selected
@@ -98,6 +108,14 @@ class CropWindow(QMainWindow):
             water = random.randint(1,10)
             self.simulated_crop.grow(light,water)
         self.update_crop_view_status()
+
+    def manual_grow_crop(self):
+        manual_values_dialog = ManualGrowDialog()
+        manual_values_dialog.exec_() # run the dialog window
+        light, water = manual_values_dialog.values()
+        self.simulated_crop.grow(light,water)
+        self.update_crop_view_status()
+        
         
     
     def update_crop_view_status(self):
@@ -108,7 +126,6 @@ class CropWindow(QMainWindow):
         self.days_line_edit.setText(str(crop_status_report["Days Growing"]))
         self.status_line_edit.setText(str(crop_status_report["Status"]))
         
-
 
         
 def main():

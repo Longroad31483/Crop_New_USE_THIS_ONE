@@ -1,4 +1,4 @@
-from PyQt.QtGui import *
+from PyQt4.QtGui import *
 
 class ManualGrowDialog(QDialog):
     """this class provides a dialog window to ask for light and water values"""
@@ -12,8 +12,8 @@ class ManualGrowDialog(QDialog):
         self.water_spinbox.setRange(0,10)
         self.light_spinbox.setRange(0,10)
 
-        self.water_spingbox.setSuffix(" Water")
-        self.light_spingbox.setSuffix(" Light")
+        self.water_spinbox.setSuffix(" Water")
+        self.light_spinbox.setSuffix(" Light")
 
         self.water_spinbox.setValue(1)
         self.light_spinbox.setValue(1)
@@ -22,7 +22,7 @@ class ManualGrowDialog(QDialog):
 
         self.dialog_layout= QVBoxLayout()
         self.dialog_layout.addWidget(self.light_spinbox)
-        self.dialog_layout.addWidget(self.water_spingbox)
+        self.dialog_layout.addWidget(self.water_spinbox)
         self.dialog_layout.addWidget(self.submit_button)
 
         self.setLayout(self.dialog_layout)
@@ -31,6 +31,6 @@ class ManualGrowDialog(QDialog):
         self.submit_button.clicked.connect(self.close)
 
     def values(self):
-        return int(self.light_spingbox.value()),int(self.water_spinbox.value())
+        return int(self.light_spinbox.value()),int(self.water_spinbox.value())
 
         
